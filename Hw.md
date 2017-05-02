@@ -75,7 +75,7 @@ class IDEK{
   }
   public static void Main(String[] args){
     if(!args.length>3) return;
-    System.out.println(calculateDatFormula(arg[0],args[2],args[1],args[3]));
+    System.out.println(calculateDatFormula(Double.parseDouble(arg[0]),Double.parseDouble(args[2]), Double.parseDouble(args[1]),Double.parseDouble(args[3])));
   }
 }
 ```
