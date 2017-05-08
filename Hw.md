@@ -31,18 +31,18 @@ class Q8{
     new char[++indent_level]
     ).replace("\0", " ");
   }
-  public void dendet()
+  public void dedent()
   {indent_level--;}
   public double abs(double num){
     System.out.printf(
-    	"%s%s",indent(),
+    	"%s%s\n",indent(),
 	"At method abs"
 	);
     dedent();
     return num<=0?-num:num;
   }
   public double sqrt(double c){
-    System.out.printf("%s%s",indent(),"At method sqrt");
+    System.out.printf("%s%s\n",indent(),"At method sqrt");
     double EPSILON = 1e-15;
     double t = c;
     while (abs(t - c/t) > EPSILON * t)
@@ -54,8 +54,8 @@ class Q8{
   }
   public static void runme_with(double arg){
     Q8 a = new Q8();
-    System.out.printf("%s%s",Q8.indent(),"At main");
-    System.out.println(Q8.sqrt(arg));
+    System.out.printf("%s%s\n",a.indent(),"At main");
+    System.out.println(a.sqrt(arg));
   }
 }
 ```
