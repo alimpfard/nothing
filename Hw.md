@@ -4,9 +4,10 @@
 ## 4
   ```java
   public static boolean eq(int[] ar0, int[] ar1){
-  /*Honest-to-god answer : *///return
+  /*Honest-to-god answer : //return
   			       (ar0.length==ar1.length)&&
   			       (!Collections.disjoint(ar0,ar1));
+			       */
   if(ar0.length!=ar1.length) return false;
   for(int i=0; i<ar0.length; i++)
     if(ar0[i]!=ar1[i]) return false;
