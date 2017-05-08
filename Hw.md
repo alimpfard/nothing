@@ -4,7 +4,9 @@
 ## 4
   ```java
   public static boolean eq(int[] ar0, int[] ar1){
-  /*Honest-to-god answer : *///return (ar0.length==ar1.length)&&(!Collections.disjoint(ar0,ar1));
+  /*Honest-to-god answer : *///return
+  			       (ar0.length==ar1.length)&&
+  			       (!Collections.disjoint(ar0,ar1));
   if(ar0.length!=ar1.length) return false;
   for(int i=0; i<ar0.length; i++)
     if(ar0[i]!=ar1[i]) return false;
@@ -13,7 +15,8 @@
   ```
 ## 5
 ```java
-public static boolean areTriangular(double a, double b, double c){
+public static boolean 
+areTriangular(double a, double b, double c){
 return a<b+c&&b<a+c&&c<a+b;
 }
 ```
@@ -23,11 +26,17 @@ class Q8{
   public Q8(){}
   public int indent_level=-1;
   public String indent(){
-    return new String(new char[++indent_level]).replace("\0", " ");
+    return new String(
+    new char[++indent_level]
+    ).replace("\0", " ");
   }
-  public void dendet(){indent_level--;}
+  public void dendet()
+  {indent_level--;}
   public double abs(double num){
-    System.out.printf("%s%s",indent(),"At method abs");
+    System.out.printf(
+    	"%s%s",indent(),
+	"At method abs"
+	);
     dedent();
     return num<=0?-num:num;
   }
@@ -58,10 +67,21 @@ public static byte signum(double x){
 ## 15
 ```java
 public static int dat_function(String num){
-  return (2*Integer.parseInt(num)).toString().toCharArray().stream().mapToInt(Integer::parseInt).sum().getAsInt(); //Map-Reduce FTW.
+  return (2*Integer.parseInt(num))
+  	.toString()
+	.toCharArray()
+	.stream()
+	.mapToInt(Integer::parseInt)
+	.sum().getAsInt(); //Map-Reduce FTW.
 }
 public static String printChecksum(String nums){
-  return (nums+nums.toCharArray().stream().mapToInt(Integer::parseInt).map(i->i%2==0?i:dat_function(i)).map(i->i.toString()).collect(Collectors.joining(""))); //Having fun yet?
+  return (nums+nums
+  	  .toCharArray()
+	  .stream()
+	  .mapToInt(Integer::parseInt)
+	  .map(i->i%2==0?i:dat_function(i))
+	  .map(i->i.toString())
+	  .collect(Collectors.joining(""))); //Having fun yet?
 }
 ```
 ## 19
@@ -79,14 +99,23 @@ public static int[] histogram(int[] arr, int m){
 }
 public static void main(String[] args) {
   int[] a = new int[10]{1,2,1,3,4,4,5,3,2,4};
-  assert histogram(a,6).stream().mapToInt(i->i).sum().equals(a.length) : "Well that's embarrasing...my code is wrong.";
+  assert histogram(a,6)
+  	.stream()
+	.mapToInt(i->i)
+	.sum()
+	.equals(a.length)
+	: "Well that's embarrasing...my code is wrong.";
 }
 ```
 ## 21
 ```java
-public static Double[][] multiply(Double[][] m0, Double[][] m1){
+public static Double[][] 
+multiply(Double[][] m0, Double[][] m1){
   int m0_xc = m0.length, m0_yc = m0[0].length, m1_xc = m1.length, m1_yc = m1[0].length;
-  if(m0_yc!=m1_xc) throw new IllegalArgumentException("Can't multiply a "+m0_xc+"x"+m0_yc+" matrix with a "+m1_xc+"x"+m1_yc+"matrix.");
+  if(m0_yc!=m1_xc) 
+  throw new IllegalArgumentException(
+  "Can't multiply a "+m0_xc+"x"+m0_yc+" matrix with a "+m1_xc+"x"+m1_yc+"matrix."
+  );
   Double[][] m2 = new Double[m0_xc][m1_yc];
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
@@ -101,9 +130,9 @@ public static Double[][] multiply(Double[][] m0, Double[][] m1){
 ## 27
 ```java
 public static double datCalc(int n){
-	  final double gamma = 0.577215664901532 ;
-	  return Math.log(n)+gamma+1/(2*n)-1/(12*n+1/(120*Math.pow(n,4)));
-	}
+ final double gamma = 0.577215664901532 ;
+ return Math.log(n)+gamma+1/(2*n)-1/(12*n+1/(120*Math.pow(n,4)));
+}
 public static double harmonic(int Count){
   double x=0;
   if (Count<100)
@@ -145,10 +174,15 @@ public static void plot(double mu, double sigma) {
 }
 public static void main(String[] args){
   int N = Integer.parseInt(args[0]);
-  ArrayList<Double> rands = new ArrayList<Double>(){{for (int i=0; i<N; i++) add(gaussian());}};
+  ArrayList<Double> rands = new ArrayList<Double>()
+  {{for (int i=0; i<N; i++) add(gaussian());}};
   int a[] = new int[20];
   for(int i=0; i<20; i++){
-  a[i] = rands.stream().filter(d->d<(i+1)/20&&d>i/20).count().getAsInt(); //redundant
+  a[i] = rands
+  	.stream()
+  	.filter(d->d<(i+1)/20&&d>i/20)
+	.count()
+	.getAsInt(); //redundant
   StdDraw.point(i/20, a[i]);
  }
  plot(0, 0.5); //Bell curve vv
@@ -185,7 +219,8 @@ public class Gaussian {
     public static double PhiInverse(double y) {
         return PhiInverse(y, .00000001, -8, 8);
     }
-    private static double PhiInverse(double y, double delta, double lo, double hi) {
+    private static double
+    PhiInverse(double y, double delta, double lo, double hi) {
         double mid = lo + (hi - lo) / 2;
         if (hi - lo < delta) return mid;
         if (Phi(mid) > y) return PhiInverse(y, delta, lo, mid);
@@ -220,7 +255,8 @@ public class HWaste{
       return p[0]+x*eval(x,arraySlice(p,1,-1));
     }
     public static double exp(double x, int termcount){
-      ArrayList<Double> al = new ArrayList<Double>(){{for(int i=0; i<termcount; i++) add(1/factorial(i));}};
+      ArrayList<Double> al = new ArrayList<Double>()
+      {{for(int i=0; i<termcount; i++) add(1/factorial(i));}};
       return eval(x,al.toArray(new Double[al.size()]));
     }
     public static void main(String[] args){
@@ -237,7 +273,11 @@ public static double lnfactorial(int n){
   return Math.log(out);
 }
 public static double binomial(int n, int k, double p){
-  double x = Math.log(Math.pow(p,k)*Math.pow(1-p,n-k)*Math.exp(lnfactorial(n)-lnfactorial(k)-lnfactorial(n-k)));
+  double x = Math.log(
+  Math.pow(p,k)*
+  Math.pow(1-p,n-k)*
+  Math.exp(lnfactorial(n)-lnfactorial(k)-lnfactorial(n-k))
+  );
   return Math.exp(x);
 }
 public static void main(String[] args) {
