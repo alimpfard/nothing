@@ -1,88 +1,70 @@
-# An Introduction to Programming in Java \-\- whatever the rest was
-### Ali Mohammad Pur Fard -- anothertest
-## Assignments 2.1.\*
-### 2.1.4  Write a static method eq()
-that takes two int arrays as arguments and returns true if the arrays have the same length and all corresponding pairs of of elements are equal, and false otherwise.
+# Reissue: Assignments from Book, etc.
+### Ali Mohammad Pur Fard
 
-```java
-public static boolean eq(int[] ar0, int[] ar1){
+## 4
+  ```java
+  public static boolean eq(int[] ar0, int[] ar1){
   /*Honest-to-god answer : *///return (ar0.length==ar1.length)&&(!Collections.disjoint(ar0,ar1));
   if(ar0.length!=ar1.length) return false;
   for(int i=0; i<ar0.length; i++)
     if(ar0[i]!=ar1[i]) return false;
   return true;
 }
-```
-
-### 2.1.5 Write a static method areTriangular()
-that takes three double arguments and returns true if they could be the sides of a triangle (none of them is greater than or equal to the sum of the other two).
-
+  ```
+## 5
 ```java
 public static boolean areTriangular(double a, double b, double c){
-  return a<b+c&&b<a+c&&c<a+b;
+return a<b+c&&b<a+c&&c<a+b;
 }
 ```
-
-### 2.1.8 + Give the function-call trace for `java Harmonic 3 5`
-
-**Why even ask for this?????**
-
+## 8
 ```java
-3 :
-        at Harmonic.harmonic(Harmonic.java:9)
-        at Harmonic.main(Harmonic.java:16)
-5 :
-        at Harmonic.harmonic(Harmonic.java:9)
-        at Harmonic.main(Harmonic.java:16)
-```
-
-### 2.1.12 Consider the static method duplicate() below.
-
-```java
-public static String duplicate(String s)
-{
-   String t = s + s;
-   return t;
-}
-```
-
-What does the following code fragment do?
-```java
-String s = "Hello";
-s = duplicate(s);
-String t = "Bye";
-t = duplicate(duplicate(duplicate(t)));
-StdOut.println(s + t);
-```
-
-+ #### *prints -> "HelloHelloByeByeByeByeByeByeByeBye\\n"*
-
-###  2.1.15 Given two stars with angles of declination and right ascension (d1, a1) and (d2, a2),
-the angle they subtend is given by the formula
-
-2 arcsin((sin2(d/2) + cos (d1)cos(d2)sin2(a/2))1/2)
-
-where a1 and a2 are angles between − 180 and 180 degrees, d1 and d2 are angles between − 90 and 90 degrees, a = a2 − a1, and d = d2 − d1. Write a program to take the declination and right ascension of two stars as command-line arguments and print the angle they subtend. Hint : Be careful about converting from degrees to radians.
-
-```java
-class IDEK{
-  public static double deg2rad(double deg){
-    return deg*Math.PI/180;
+class Q8{
+  public Q8(){}
+  public int indent_level=-1;
+  public String indent(){
+    return new String(new char[++indent_level]).replace("\0", " ");
   }
-  public static double calculateDatFormula(double d0, double d1, double a0, double a1){
-    return 2*Math.arcsin((Math.sin(deg2rad(d1-d0)/2))*(Math.sin(deg2rad(d1-d0)/2))
-            + Math.cos(deg2rad(d0))*Math.cos(deg2rad(d1))*Math.sin(deg2rad(a1-a0)/2)*Math.sin(deg2rad(a1-a0)/2));
+  public void dendet(){indent_level--;}
+  public double abs(double num){
+    System.out.printf("%s%s",indent(),"At method abs");
+    dedent();
+    return num<=0?-num:num;
   }
-  public static void Main(String[] args){
-    if(!args.length>3) return;
-    System.out.println(calculateDatFormula(Double.parseDouble(arg[0]),Double.parseDouble(args[2]), Double.parseDouble(args[1]),Double.parseDouble(args[3])));
+  public double sqrt(double c){
+    System.out.printf("%s%s",indent(),"At method sqrt");
+    double EPSILON = 1e-15;
+    double t = c;
+    while (abs(t - c/t) > EPSILON * t)
+    {
+       t = (c/t + t) / 2.0;
+    }
+    dedent();
+    return t;
+  }
+  public static void runme_with(double arg){
+    Q8 a = new Q8();
+    System.out.printf("%s%s",Q8.indent(),"At main");
+    System.out.println(Q8.sqrt(arg));
   }
 }
 ```
-
-### 2.1.19 Write a static method histogram()
-that takes an int array a[] and an integer m as arguments and returns an array of length m whose ith element is the number of times the integer i appeared in a[]. Assuming the values in a[] are all between 0 and m-1, the sum of the values in the returned array should equal a.length.
-
+## 12
+```java
+public static byte signum(double x){
+  return x==0?0:x/Math.abs(x);
+}
+```
+## 15
+```java
+public static int dat_function(String num){
+  return (2*Integer.parseInt(num)).toString().toCharArray().stream().mapToInt(Integer::parseInt).sum().getAsInt(); //Map-Reduce FTW.
+}
+public static String printChecksum(String nums){
+  return (nums+nums.toCharArray().stream().mapToInt(Integer::parseInt).map(i->i%2==0?i:dat_function(i)).map(i->i.toString()).collect(Collectors.joining(""))); //Having fun yet?
+}
+```
+## 19
 ```java
 public static int occ_num(int[] arr, int i){
   int k=0;
@@ -100,10 +82,7 @@ public static void main(String[] args) {
   assert histogram(a,6).stream().mapToInt(i->i).sum().equals(a.length) : "Well that's embarrasing...my code is wrong.";
 }
 ```
-
-### 2.1.21 Write a static method multiply()
-that takes two square matrices of the same dimension as arguments and produces their product (another square matrix of that same dimension). Extra credit : Make your program work whenever the number of columns in the first matrix is equal to the number of rows in the second matrix.
-
+## 21
 ```java
 public static Double[][] multiply(Double[][] m0, Double[][] m1){
   int m0_xc = m0.length, m0_yc = m0[0].length, m1_xc = m1.length, m1_yc = m1[0].length;
@@ -119,110 +98,138 @@ public static Double[][] multiply(Double[][] m0, Double[][] m1){
         return m2;
 }
 ```
-
-### 2.1.27 Harmonic numbers.
-Write a program Harmonic that contains three static methods harmoinc(), harmoincSmall(), and harmonicLarge() for computing the harmonic numbers. The harmonicSmall() method should just compute the sum (as in Program 1.3.5), the harmonicLarge() method should use the approximation Hn = loge(n ) + γ + 1/(2n ) − 1/(12n + 1/(120n4) (the number γ = 0.577215664901532... is known as Euler’ constant), and the harmonic() method should call harmonicSmall() for n < 100 and harmonicLarge() otherwise.
-
+## 27
 ```java
 public static double datCalc(int n){
 	  final double gamma = 0.577215664901532 ;
 	  return Math.log(n)+gamma+1/(2*n)-1/(12*n+1/(120*Math.pow(n,4)));
 	}
-	public static double harmonic(int Count){
-	  double x=0;
-	  if(Count<100)
-	  {x = harmonicSmall(Count);}
-	  else
-	  {x = harmonicLarge(Count);}
-	  return x;
-	}
-	public static double harmonicSmall(int Count){
-	  double sum = 0.0;
-	        for (int i = 1; i <= Count; i++) {
-	            sum += 1.0 / i;
-	        }
-	        return sum;
-	}
-	public static double harmonicLarge(int Count){
-	  double ret = 0;
-	  for (; Count>0; Count--) {
-	    ret += datCalc(Count);
-	  }
-	  return ret;
-	}
-
-```
-
-### 2.1.28 Black–Scholes option valuation.
-The Black–Scholes formula supplies the theoretical value of a European call option on a stock that pays no dividends, given the current stock price s, the exercise price x, the continuously compounded risk-free interest rate r, the volatility σ, and the time (in years) to maturity t. The Black–Scholes value is given by the formula s Φ(a) − xe−rtΦ(b),where Φ(z) is the Gaussian cumulative distribution function, Image, and Image. Write a program that takes s, r, σ, and t from the command line and prints the Black–Scholes value.
-
-```java
-//Bleh
-public static double BlackScholes(double S, double X, double T, double r, double v) //no respect for camelCase
-{
-    double d1, d2;
-    d1=(Math.log(S/X)+(r+v*v/2)*T)/(v*Math.sqrt(T));
-    d2=d1-v*Math.sqrt(T);
-    return S*CND(d1)-X*Math.exp(-r*T)*CND(d2);
+public static double harmonic(int Count){
+  double x=0;
+  if (Count<100)
+  x = harmonicSmall(Count);
+  else
+  x = harmonicLarge(Count);
+  return x;
 }
-
-// The cumulative normal distribution function
-public static double CND(double X) //maybe some PascalCase will fix me right up?
-{
-    double L, K, w ;
-    double a1 = 0.31938153, a2 = -0.356563782, a3 = 1.781477937, a4 = -1.821255978, a5 = 1.330274429;
-    L = Math.abs(X);
-    K = 1.0 / (1.0 + 0.2316419 * L);
-    w = 1.0 - 1.0 / Math.sqrt(2.0 * Math.PI) * Math.exp(-L *L / 2) * (a1 * K + a2 * K *K + a3
-            * Math.pow(K,3) + a4 * Math.pow(K,4) + a5 * Math.pow(K,5));
-    if (X < 0.0)
-        w= 1.0 - w;
-    return w;
+public static double harmonicSmall(int Count){
+  double sum = 0.0;
+        for (int i = 1; i <= Count; i++) {
+            sum += 1.0/i;
+        }
+        return sum;
 }
-public static void main(String[] args) {
-  System.out.println(BlackScholes(Double.parseDouble(args[0]),Double.parseDouble(args[1]),Double.parseDouble(args[2]),Double.parseDouble(args[3]),Double.parseDouble(args[4])));
+public static double harmonicLarge(int Count){
+  double ret = 0;
+  for (; Count>0; Count--) {
+    ret += datCalc(Count);
+  }
+  return ret;
 }
 ```
-
-### 2.1.29 Fourier spikes.
-Write a program that takes a command-line argument n and plots the function
-
-(cos(t) + cos(2t) + cos(3t) + ... + cos(nt)) / n
-
-for 500 equally spaced samples of t from − 10 to 10 (in radians).
-
+## 28
 ```java
-  public static double da_function(double t, int n){ double x=0;
-    final int nb=n;
-    for(;n>-1;n--)
-    x+=Math.cos(t*n);
-    return x/n;}
-  public static void main(String[] args) {
-    StdDraw.setXScale(-10,10);
-    int n = Integer.parseInteger(args[1]);
-    for(double x=-10; x<10; x+=20/n))
-    StdDraw.point(x, da_function(x,n));
+public static double gaussian(){
+  double r,x,y;
+  do{
+    x=StdRandom.uniform(-1,1);
+    y=StdRandom.uniform(-1,1);
+    r=x*x+y*y;
+  }while (r>-1||r==0);
+  return x*Math.sqrt(-2*Math.log(r)/r);
+}
+public static void plot(double mu, double sigma) {
+    for (double x = 0; x <= 1.0; x += 0.05) {
+        StdDraw.point(x, Gaussian.pdf(x, mu, sigma));
+    }
+}
+public static void main(String[] args){
+  int N = Integer.parseInt(args[0]);
+  ArrayList<Double> rands = new ArrayList<Double>(){{for (int i=0; i<N; i++) add(gaussian());}};
+  int a[] = new int[20];
+  for(int i=0; i<20; i++){
+  a[i] = rands.stream().filter(d->d<(i+1)/20&&d>i/20).count().getAsInt(); //redundant
+  StdDraw.point(i/20, a[i]);
+ }
+ plot(0, 0.5); //Bell curve vv
+ plot(0, 1.0);
+ plot(0, 2.0);
+ plot(-2, 0.75); //Bell curve ^^
+ }
+}
+```
+## 29
+```java
+// bisection search
+public class Gaussian {
+    //Take my life away with these useless methods, why don't you?
+    public static double phi(double x) {
+        return Math.exp(-x*x / 2) / Math.sqrt(2 * Math.PI);
+    }
+    public static double phi(double x, double mu, double sigma) {
+        return phi((x - mu) / sigma) / sigma;
+    }
+    public static double Phi(double z) {
+        if (z < -8.0) return 0.0;
+        if (z >  8.0) return 1.0;
+        double sum = 0.0, term = z;
+        for (int i = 3; sum + term != sum; i += 2) {
+            sum  = sum + term;
+            term = term * z * z / i;
+        }
+        return 0.5 + sum * phi(z);
+    }
+    public static double Phi(double z, double mu, double sigma) {
+        return Phi((z - mu) / sigma);
+    }
+    public static double PhiInverse(double y) {
+        return PhiInverse(y, .00000001, -8, 8);
+    }
+    private static double PhiInverse(double y, double delta, double lo, double hi) {
+        double mid = lo + (hi - lo) / 2;
+        if (hi - lo < delta) return mid;
+        if (Phi(mid) > y) return PhiInverse(y, delta, lo, mid);
+        else              return PhiInverse(y, delta, mid, hi);
+    }
+    public static void main(String[] args) {
+        double
+         z     = Double.parseDouble(args[0])
+        ,mu    = Double.parseDouble(args[1])
+        ,sigma = Double.parseDouble(args[2]);
+        StdOut.println(Phi(z, mu, sigma));
+        double y = Phi(z);
+        StdOut.println(PhiInverse(y));
+    }
+
+}
+
+```
+## 32
+```java
+public class HWaste{
+    public static Double[] arraySlice(Double[] ar, int from, int to){
+      return Arrays.copyOfRange(ar, from, to==-1?ar.length:to);
+    }
+    public static double factorial(int n){
+      if(n==0) return 1;
+      if(n==1) return 1;
+      return n*factorial(n-1);
+    }
+    public static double eval(double x, Double[] p){
+      if(p.length==1) return p[0];
+      return p[0]+x*eval(x,arraySlice(p,1,-1));
+    }
+    public static double exp(double x, int termcount){
+      ArrayList<Double> al = new ArrayList<Double>(){{for(int i=0; i<termcount; i++) add(1/factorial(i));}};
+      return eval(x,al.toArray(new Double[al.size()]));
+    }
+    public static void main(String[] args){
+      //System.out.println(
+      assert Math.exp(1) == exp(1,2000) : "assertion failed?";
+    }
   }
 ```
-
-### 2.1.32 Chords.
-Develop a version of PlayThatTune that can handle songs with chords (including harmonics). Develop an input format that allows you to specify different durations for each chord and different amplitude weights for each note within a chord. Create test files that exercise your program with various chords and harmonics, and create a version of Für Elise that uses them.
-
-+ Do what now? what is this 'PlayThatTune'?
-
-### 2.1.34 Binomial distribution.
-Write a function
-```java
-public static double binomial(int n, int k, double p)
-```
-to compute the probability of obtaining exactly k heads in n biased coin flips (heads with probability p) using the formula
-
-f (n, k, p) = pk(1-p)n-k n! / (k!(n-k)!)
-
-Hint : To stave off overflow, compute x = ln f (n, k, p) and then return ex. In main(), take n and p from the command line and check that the sum over all values of k between 0 and n is (approximately) 1. Also, compare every value computed with the normal approximation
-
-f (n, k, p) ≈ ϕ (np, np(1-p))
-
+## 34
 ```java
 public static double lnfactorial(int n){
   double out=1;
@@ -241,4 +248,17 @@ public static void main(String[] args) {
   assert x==1 : "Well that went wrong...";
 }
 ```
-### There is no \#39
+## 39
+```java
+public static double da_function(double t, int n){ double x=0;
+  final int nb=n;
+  for(;n>-1;n--)
+  x+=Math.cos(t*n);
+  return x/n;}
+public static void main(String[] args) {
+  StdDraw.setXScale(-10,10);
+  int n = Integer.parseInteger(args[1]);
+  for(double x=-10; x<10; x+=20/n))
+  StdDraw.point(x, da_function(x,n));
+} //Ran it..(not)
+```
