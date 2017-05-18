@@ -295,7 +295,7 @@ public static double da_function(double t, int n){ double x=0;
   final int nb=n;
   for(;n>-1;n--)
   x+=Math.cos(t*n);
-  return x/n;}
+  return x/nb;}
 public static void main(String[] args) {
   StdDraw.setXScale(-10,10);
   int n = Integer.parseInteger(args[1]);
